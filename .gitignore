@@ -1,0 +1,10 @@
+/00
+/Nand2Tetris
+/06/N2T
+/10/JackCompiler
+
+# misc
+Project6.py
+*.tst
+*.cmp
+*.zip
