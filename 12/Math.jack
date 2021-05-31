@@ -18,7 +18,7 @@ class Math {
         let i = 0;
         let twoToThe = Array.new(16);        
 
-        while(i < 15) {
+        while(i < 16) {
             let twoToThe[i] = w;
             let w = w + w;
             let i = i + 1;
@@ -44,66 +44,30 @@ class Math {
      *  the Jack expressions x*y and multiply(x,y) return the same value.
      */
     function int multiply(int x, int y) {
-        var int sum, shiftedX, filter, w, sthBit, index;
+
+        var int sum, shiftedX, w, index;
+        var boolean sthBit;
         let sum = 0;
         let index = 0;
         let shiftedX = x;
-        let filter = 1;
         let w = 1;
-        let sthBit = ~((y & -1) = 0);
-        do Output.printString("x: ");
-        do Output.printInt(x);
-        do Output.printString(" y: ");
-        do Output.printInt(y);
-        do Output.println();
+        let sthBit = Math.bit(y,15);
 
-        do Output.printString("negative: ");
-        do Output.printInt(Math.bit(y,15));
-        do Output.println();
-        if(Math.bit(y,15)) {
-            do Output.printString("int y is negative");
-            do Output.println();
-        }
-        
-        while((w < y)) {
-            do Output.printString("yaf: ");
-            do Output.printInt((y & filter));
-            do Output.printString(" ");
+        while((w < y)  | sthBit) {
             
             if(Math.bit(y, index)) {
                 let sum = sum + shiftedX;
-                do Output.printString(" sum: ");
-                do Output.printInt(sum);
             }
+
             let shiftedX = shiftedX + shiftedX;
-            let filter = filter + filter;
             let w = w + w;
-            let index = index + index;
-            if (w = 512) {
-                let sthBit = 0;
+            let index = index + 1;
+
+            if (w = twoToThe[15]) {
+                let sthBit = false;
             }
-            do Output.printString(" sh: ");
-            do Output.printInt(shiftedX);
-            do Output.printString(" f: ");
-            do Output.printInt(filter);
-            do Output.printString(" w: ");
-            do Output.printInt(w);
-            do Output.println();
         }
         return sum;
-        /* i = 0
-        /* y = 8
-        /* temp = 1
-            while temp <= y or temp <= 16 + y
-                temp += temp
-
-            1 0 
-            1 0
-            1 0
-          1 0 0
-          
-        */
-
     }
 
     /** Returns the integer part of x/y.
