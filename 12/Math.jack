@@ -35,7 +35,11 @@ class Math {
 
     /** Returns the absolute value of x. */
     function int abs(int x) {
-        return 1;
+        if (Math.bit(x,15)) {
+            return (-x); 
+        } else {
+            return x;
+        }
     }
 
     /** Returns the product of x and y. 
@@ -45,15 +49,23 @@ class Math {
      */
     function int multiply(int x, int y) {
 
-        var int sum, shiftedX, w, index;
+        var int sum, shiftedX, w, index, nx, ny;
         var boolean sthBit;
+
+        let sthBit = Math.bit(y,15);
         let sum = 0;
         let index = 0;
         let shiftedX = x;
         let w = 1;
-        let sthBit = Math.bit(y,15);
 
-        while((w < y)  | sthBit) {
+        //do Output.println();
+        //do Output.printString("x: ");
+        //do Output.printInt(x);   
+        //do Output.printString("  y: ");
+        //do Output.printInt(y);   
+        //do Output.println();
+
+        while((w < y) | (w =y)  | sthBit) {
             
             if(Math.bit(y, index)) {
                 let sum = sum + shiftedX;
@@ -67,6 +79,10 @@ class Math {
                 let sthBit = false;
             }
         }
+        //do Output.println();
+        //do Output.printString("  psum: ");
+        //do Output.printInt(sum);   
+        //do Output.println();
         return sum;
     }
 
@@ -76,11 +92,109 @@ class Math {
      *  the Jack expressions x/y and divide(x,y) return the same value.
      */
     function int divide(int x, int y) {
-        return 1;
+        /*
+            divide(5,2)
+                divide(5,4)
+                    q=divide(5,8) return 0
+                return 1 
+            q=1
+            return 2
+
+            algo1:
+            if rem < y:
+                return div
+            div += largestNum()
+            x = x - divs*div
+            divide(rem, y)
+
+            largestNum(divd,y):
+                x=9
+                s.setInt(divd);
+                len = s.length();
+                x = 9 * (len-2)*10
+                if : 
+                    return x
+                else
+                    x += 10
+                
+        */
+        /*
+            x=9, y=3
+
+            divide(9,3)
+                divide(9,6)
+                    divide(9,12)
+                    return 0
+                q=0
+                return 1
+            q=1
+            return 3
+        */
+        var int q, res;
+        var boolean sthBit, xsthBit;
+        //do Output.println();
+        //do Output.printString("x: ");
+        //do Output.printInt(x);   
+        //do Output.printString("  y: ");
+        //do Output.printInt(y);   
+        //do Output.println();
+
+        let xsthBit = Math.bit(x,15);
+        let sthBit = Math.bit(y,15);
+
+        let x = Math.abs(x);
+        let y = Math.abs(y);
+
+
+        if((y > x) | (y < 0)) {
+            //do Output.println();
+            //do Output.printString("base: ");
+            return 0;
+        }
+    
+        let q = Math.divide(x, (2*y));
+        //do Output.println();
+        //do Output.printString("q: ");
+        //do Output.printInt(q);
+
+        if(((x-((2*q)*y))) < y) {
+            //do Output.println();
+            //do Output.printString("c1: ");
+            //do Output.printInt(((2*q)));
+            //do Output.printString("  q: ");
+            //do Output.printInt(q);
+            let res = (2*q);
+        } else {
+            //do Output.println();
+            //do Output.printString("c2: ");
+            //do Output.printInt(((2*q) ));
+            //do Output.printString("  q: ");
+            //do Output.printInt(q);
+            let res = ((2*q) + 1);
+        }
+        //return 1;
+        if ((xsthBit & (~sthBit)) | ((~xsthBit) & sthBit)) { 
+            //do Output.println();
+            //do Output.printString("  nres: ");
+            //do Output.printInt(-res);   
+            //do Output.println();
+            return (-res);
+        } else {
+            //do Output.println();
+            //do Output.printString("  pres: ");
+            //do Output.printInt(res);   
+            //do Output.println();
+            return res;
+        }
     }
+
 
     /** Returns the integer part of the square root of x. */
     function int sqrt(int x) {
+        var int y, j, n;
+
+        let y = 0;
+        
         return 1;
     }
 
