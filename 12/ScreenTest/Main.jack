@@ -35,6 +35,7 @@ class Main {
         do Screen.drawLine(117,35,102,20);       
         do Sys.wait(2000);
         do Screen.clearScreen();
+        //do Output.printInt((~63) & 24321);
         
         return;
     }
