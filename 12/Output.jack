@@ -251,22 +251,41 @@ class Output {
     /** displays the given string starting at the cursor location,
      *  and advances the cursor appropriately. */
     function void printString(String s) {
+        var int len, i;
+
+        let len = s.length();
+        let i = 0;
+
+        while( i < len ) {
+            do Output.printChar(s.charAt(i));
+            let i = i + 1;
+        }
+        
         return;
     }
 
     /** Displays the given integer starting at the cursor location,
      *  and advances the cursor appropriately. */
     function void printInt(int i) {
+        var String s;
+
+        let s = String.new(7);
+        
+        do s.setInt(i); 
+        do Output.printString(s);
+
         return;
     }
 
     /** Advances the cursor to the beginning of the next line. */
     function void println() {
+        do Output.moveCursor(0, y + 11);
         return;
     }
 
     /** Moves the cursor one column back. */
     function void backSpace() {
+        do Output.moveCursor(x - 8, y);
         return;
     }
 }

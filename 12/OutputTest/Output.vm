@@ -1,39 +1,8 @@
-function Output.init 2
+function Output.init 0
 push constant 0
 pop static 1
 push constant 0
 pop static 2
-push constant 1
-pop local 0
-push constant 0
-pop local 1
-push constant 16
-call Array.new 1
-pop static 3
-label WHILE_EXP0
-push local 1
-push constant 16
-lt
-not
-if-goto WHILE_END0
-push local 1
-push static 3
-add
-push local 0
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push local 0
-push local 0
-add
-pop local 0
-push local 1
-push constant 1
-add
-pop local 1
-goto WHILE_EXP0
-label WHILE_END0
 call Output.initMap 0
 pop temp 0
 push static 1
@@ -1514,7 +1483,7 @@ add
 pop pointer 1
 push that 0
 return
-function Output.moveCursor 1
+function Output.moveCursor 0
 push constant 32
 call Output.printChar 1
 pop temp 0
@@ -1628,15 +1597,59 @@ goto WHILE_EXP0
 label WHILE_END0
 push constant 0
 return
-function Output.printString 0
+function Output.printString 2
+push argument 0
+call String.length 1
+pop local 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+push local 0
+lt
+not
+if-goto WHILE_END0
+push argument 0
+push local 1
+call String.charAt 2
+call Output.printChar 1
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
 push constant 0
 return
-function Output.printInt 0
+function Output.printInt 1
+push constant 7
+call String.new 1
+pop local 0
+push local 0
+push argument 0
+call String.setInt 2
+pop temp 0
+push local 0
+call Output.printString 1
+pop temp 0
 push constant 0
 return
 function Output.println 0
 push constant 0
+push static 2
+push constant 11
+add
+call Output.moveCursor 2
+pop temp 0
+push constant 0
 return
 function Output.backSpace 0
+push static 1
+push constant 8
+sub
+push static 2
+call Output.moveCursor 2
+pop temp 0
 push constant 0
 return
