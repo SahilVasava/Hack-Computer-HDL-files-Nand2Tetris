@@ -1484,77 +1484,70 @@ pop pointer 1
 push that 0
 return
 function Output.moveCursor 0
-push constant 32
-call Output.printChar 1
-pop temp 0
 push argument 0
 pop static 1
 push argument 1
 pop static 2
-push constant 0
-call Output.printChar 1
+push constant 32
+call Output.displayChar 1
 pop temp 0
 push constant 0
 return
-function Output.printChar 6
+function Output.printChar 0
+push argument 0
+call Output.displayChar 1
+pop temp 0
+push static 1
+push static 2
+push constant 1
+add
+call Output.moveCursor 2
+pop temp 0
+push constant 0
+return
+function Output.displayChar 6
 push argument 0
 call Output.getMap 1
 pop local 0
 push constant 0
 pop local 1
-push static 1
-pop local 3
 push static 2
 pop local 4
-push argument 0
-push constant 32
-eq
-push argument 0
-push constant 0
-eq
-or
-not
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
 push static 1
-push constant 8
+pop local 3
+push constant 16384
+push constant 32
+push constant 11
+call Math.multiply 2
+push local 3
+call Math.multiply 2
+push local 4
+push constant 2
+call Math.divide 2
 add
-push static 2
-call Output.moveCursor 2
-pop temp 0
-label IF_FALSE0
+add
+pop local 2
 label WHILE_EXP0
 push local 1
 push constant 11
 lt
 not
 if-goto WHILE_END0
-push constant 16384
-push constant 32
-push local 4
-call Math.multiply 2
-push local 3
-push constant 16
-call Math.divide 2
-add
-add
-pop local 2
 push local 2
 call Memory.peek 1
 pop local 5
-push local 3
-push constant 16
-push local 3
-push constant 16
+push local 4
+push constant 2
+push local 4
+push constant 2
 call Math.divide 2
 call Math.multiply 2
 sub
-push constant 8
-lt
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push local 2
 push constant 63
 not
@@ -1568,8 +1561,8 @@ push that 0
 add
 call Memory.poke 2
 pop temp 0
-goto IF_END1
-label IF_FALSE1
+goto IF_END0
+label IF_FALSE0
 push local 2
 push constant 63
 push local 5
@@ -1584,11 +1577,11 @@ call Math.multiply 2
 add
 call Memory.poke 2
 pop temp 0
-label IF_END1
-push local 4
-push constant 1
+label IF_END0
+push local 2
+push constant 32
 add
-pop local 4
+pop local 2
 push local 1
 push constant 1
 add
@@ -1636,19 +1629,19 @@ pop temp 0
 push constant 0
 return
 function Output.println 0
-push constant 0
-push static 2
-push constant 11
+push static 1
+push constant 1
 add
+push constant 0
 call Output.moveCursor 2
 pop temp 0
 push constant 0
 return
 function Output.backSpace 0
 push static 1
-push constant 8
-sub
 push static 2
+push constant 1
+sub
 call Output.moveCursor 2
 pop temp 0
 push constant 0

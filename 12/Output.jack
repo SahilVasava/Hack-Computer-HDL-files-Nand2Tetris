@@ -18,15 +18,15 @@ class Output {
 
     // Character map for displaying characters
     static Array charMaps; 
-    static int x,y;
+    static int row,col;
 
     /** Initializes the screen, and locates the cursor at the screen's top-left. */
     function void init() {
-        let x = 0;
-        let y = 0;
+        let row = 0;
+        let col = 0;
 
         do Output.initMap();
-        do Output.moveCursor(x,y);
+        do Output.moveCursor(row,col);
         return;
     }
 
@@ -211,10 +211,10 @@ class Output {
         //let cursor = Output.getMap(0);
         //do Memory.poke(address, ((value*256)+(map[i])));
 
-        do Output.printChar(32);
-        let x = i;
-        let y = j;
-        do Output.printChar(0);
+        //do Output.printChar(32);
+        let row = i;
+        let col = j;
+        do Output.displayChar(32);
 
         return;
     }
@@ -222,27 +222,36 @@ class Output {
     /** Displays the given character at the cursor location,
      *  and advances the cursor one column forward. */
     function void printChar(char c) {
-        var Array map, i, address, charX, charY, value;
+        do Output.displayChar(c);
+        do Output.moveCursor(row,col+1);
+        return;
+    }
+
+    /*
+    * displays the char at the cursor location
+    */
+    function void displayChar(char c) {
+        var Array map, i, address, charRow, charCol, value;
 
         let map = Output.getMap(c);
         let i = 0;
-        let charX = x;
-        let charY = y;
+        let charCol = col;
+        let charRow = row;
         
-        if (~((c = 32) | (c = 0))) {
-            do Output.moveCursor(x+8,y);
-        }
+        let address = (16384 +(((32*11)*charRow) + (charCol/2)));
         while(i<11) {
-            let address = 16384 +((32*charY) + (charX/16));
             let value = Memory.peek(address);
             
-            if ((charX - (16 * (charX / 16))) < 8){
+            // Check if cursor is located in first half of register or 2nd half
+            if ((charCol - (2 * (charCol / 2))) = 0){
+                // Get int value of 2nd half and add it to int value of char c and store the new value
                 do Memory.poke(address, (((~63) & value) + map[i]));
             } else {
+                // Get int value of 1st half and add it to shifted int value of char c and store the new value
                 do Memory.poke(address, ((63 & value) + (map[i]*256)));
             }
 
-            let charY = charY + 1;
+            let address = address + 32;
             let i = i + 1;
         }
         return;
@@ -279,13 +288,14 @@ class Output {
 
     /** Advances the cursor to the beginning of the next line. */
     function void println() {
-        do Output.moveCursor(0, y + 11);
+        //do Output.moveCursor(0, y + 11);
+        do Output.moveCursor(row + 1,0);
         return;
     }
 
     /** Moves the cursor one column back. */
     function void backSpace() {
-        do Output.moveCursor(x - 8, y);
+        do Output.moveCursor(row,col - 1);
         return;
     }
 }
